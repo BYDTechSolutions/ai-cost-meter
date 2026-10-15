@@ -1,0 +1,65 @@
+{
+  "name": "@bydtech/ai-cost-meter",
+  "version": "0.1.0",
+  "description": "Know what each LLM call costs, per request, per user and per feature, with budgets, without sending usage data anywhere.",
+  "keywords": [
+    "llm",
+    "cost",
+    "pricing",
+    "tokens",
+    "budget",
+    "openai",
+    "anthropic",
+    "claude",
+    "gemini",
+    "usage",
+    "metering",
+    "cli"
+  ],
+  "author": "BYD Tech <sales.bydtech@gmail.com> (https://bydtech.in)",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BYDTechSolutions/ai-cost-meter.git"
+  },
+  "homepage": "https://github.com/BYDTechSolutions/ai-cost-meter#readme",
+  "bugs": {
+    "url": "https://github.com/BYDTechSolutions/ai-cost-meter/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "ai-cost-meter": "dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "check-data": "node scripts/check-data.mjs",
+    "prepack": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "ajv": "^8.20.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.12"
+  }
+}

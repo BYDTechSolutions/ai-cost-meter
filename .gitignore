@@ -1,0 +1,8 @@
+node_modules/
+dist/
+*.tgz
+coverage/
+.DS_Store
+*.jsonl
+!test/fixtures/*.jsonl
+!examples/*.jsonl
