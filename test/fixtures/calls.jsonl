@@ -1,0 +1,6 @@
+{"ts":"2026-10-14T09:12:00.000Z","provider":"anthropic","model":"claude-sonnet-4-6","tags":["user:1","feature:search"],"usage":{"inputTokens":1200,"cachedInputTokens":5000,"outputTokens":300},"batch":false,"costUsd":0.0096,"breakdown":null,"warnings":[]}
+{"ts":"2026-10-14T17:40:00.000Z","provider":"openai","model":"gpt-5-mini","tags":["user:2","feature:search"],"usage":{"inputTokens":298,"cachedInputTokens":1536,"outputTokens":412},"batch":false,"costUsd":0.0009369,"breakdown":null,"warnings":[]}
+
+{"ts":"2026-10-15T08:05:00.000Z","provider":"anthropic","model":"claude-sonnet-4-6","tags":["user:1","feature:summarize"],"usage":{"inputTokens":50,"cachedInputTokens":10000,"cacheWriteTokens":2048,"outputTokens":503},"batch":false,"costUsd":0.018375,"breakdown":null,"warnings":[]}
+{"ts":"2026-10-15T11:30:00.000Z","provider":null,"model":"my-finetune","tags":["feature:summarize"],"usage":{"inputTokens":800,"outputTokens":100},"batch":false,"costUsd":null,"breakdown":null,"warnings":["no price for model \"my-finetune\" in the price data"]}
+{"ts":"2026-10-16T10:00:00.000Z","provider":"google-gemini-api","model":"gemini-2.5-flash","tags":[],"usage":{"inputTokens":1400,"cachedInputTokens":2600,"audioInputTokens":600,"cachedAudioInputTokens":400,"outputTokens":2000},"batch":false,"costUsd":0.006138,"breakdown":null,"warnings":[]}

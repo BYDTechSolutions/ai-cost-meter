@@ -1,0 +1,17 @@
+{
+  "id": "msg_01FqfsLoHwgeFbguDgpz48m7",
+  "type": "message",
+  "role": "assistant",
+  "model": "claude-haiku-4-5",
+  "content": [{ "type": "text", "text": "Category: billing" }],
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "usage": {
+    "input_tokens": 312,
+    "cache_creation_input_tokens": 4096,
+    "cache_read_input_tokens": 0,
+    "cache_creation": { "ephemeral_5m_input_tokens": 0, "ephemeral_1h_input_tokens": 4096 },
+    "output_tokens": 9,
+    "service_tier": "batch"
+  }
+}

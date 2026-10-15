@@ -1,0 +1,27 @@
+{
+  "candidates": [
+    {
+      "content": { "parts": [{ "text": "The caller asks to move the delivery to Friday." }], "role": "model" },
+      "finishReason": "STOP",
+      "index": 0
+    }
+  ],
+  "usageMetadata": {
+    "promptTokenCount": 5000,
+    "candidatesTokenCount": 800,
+    "totalTokenCount": 7000,
+    "cachedContentTokenCount": 3000,
+    "thoughtsTokenCount": 1200,
+    "promptTokensDetails": [
+      { "modality": "TEXT", "tokenCount": 4000 },
+      { "modality": "AUDIO", "tokenCount": 1000 }
+    ],
+    "cacheTokensDetails": [
+      { "modality": "TEXT", "tokenCount": 2600 },
+      { "modality": "AUDIO", "tokenCount": 400 }
+    ],
+    "candidatesTokensDetails": [{ "modality": "TEXT", "tokenCount": 800 }]
+  },
+  "modelVersion": "gemini-2.5-flash",
+  "responseId": "mGXpaJ3vNLqxz7IP2M2Q6AU"
+}

@@ -1,0 +1,20 @@
+{
+  "candidates": [
+    {
+      "content": { "parts": [{ "text": "According to the linked page, the release ships next week." }], "role": "model" },
+      "finishReason": "STOP",
+      "index": 0
+    }
+  ],
+  "usageMetadata": {
+    "promptTokenCount": 220,
+    "candidatesTokenCount": 64,
+    "totalTokenCount": 2084,
+    "toolUsePromptTokenCount": 1800,
+    "promptTokensDetails": [{ "modality": "TEXT", "tokenCount": 220 }],
+    "toolUsePromptTokensDetails": [{ "modality": "TEXT", "tokenCount": 1800 }],
+    "serviceTier": "flex"
+  },
+  "modelVersion": "models/gemini-3.8-flash",
+  "responseId": "kXrpaN6sJ5Kx7M8P1eSp-Ag"
+}
