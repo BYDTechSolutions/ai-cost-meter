@@ -130,7 +130,7 @@ export function priceCall(book: PriceBook, input: CostInput, now: Date = new Dat
   const found = book.find(input.model, input.provider);
   if (found === null) {
     const where = input.provider ? `${input.provider}/${input.model}` : input.model;
-    return { ...base, warnings, missing: `no price for model "${where}"; add it with the prices option` };
+    return { ...base, warnings, missing: `no price for model "${where}" in the price data` };
   }
   if ('ambiguous' in found) {
     return {
