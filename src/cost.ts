@@ -107,6 +107,11 @@ function rateFor(r: Rates, key: UsageKey): RateFor {
   }
 }
 
+/** Rounds to 1e-12 USD, which only removes floating-point noise such as 0.000038400000000000005. */
+function round12(v: number): number {
+  return Math.round(v * 1e12) / 1e12;
+}
+
 function label(entry: PriceEntry): string {
   return `${entry.provider}/${entry.model}`;
 }
@@ -186,11 +191,11 @@ export function priceCall(book: PriceBook, input: CostInput, now: Date = new Dat
     const { rate, fallback } = rateFor(rates, key);
     if (fallback) warnings.push(`${label(entry)}: ${fallback}`);
     micro += tokens * rate;
-    lines[key] = { tokens, ratePerMtok: rate, usd: (tokens * rate) / 1_000_000 };
+    lines[key] = { tokens, ratePerMtok: rate, usd: round12((tokens * rate) / 1_000_000) };
   }
   return {
     ...resolved,
-    costUsd: micro / 1_000_000,
+    costUsd: round12(micro / 1_000_000),
     breakdown: {
       lines,
       promptTokens,
