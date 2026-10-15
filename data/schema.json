@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/BYDTechSolutions/ai-cost-meter/blob/main/data/schema.json",
+  "title": "ai-cost-meter price dataset",
+  "description": "List prices of LLM API models in USD per million tokens, each read from the provider's own pricing page.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["updated", "prices"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "updated": { "$ref": "#/$defs/date", "description": "Date the dataset as a whole was last re-verified." },
+    "prices": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/entry" }
+    }
+  },
+  "$defs": {
+    "date": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+    },
+    "modelId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[^\\s\"'`]+$"
+    },
+    "usd": {
+      "type": "number",
+      "minimum": 0,
+      "description": "USD per million tokens."
+    },
+    "rateFields": {
+      "description": "The per-token rates of one price block. Fields a page does not list are left out.",
+      "type": "object",
+      "properties": {
+        "input_per_mtok": { "$ref": "#/$defs/usd", "description": "Uncached input tokens." },
+        "output_per_mtok": { "$ref": "#/$defs/usd", "description": "Output tokens, including reasoning or thinking tokens." },
+        "cached_input_per_mtok": { "$ref": "#/$defs/usd", "description": "Input tokens read from the prompt cache." },
+        "cache_write_per_mtok": { "$ref": "#/$defs/usd", "description": "Input tokens written to the prompt cache (Anthropic: the 5-minute cache)." },
+        "cache_write_1h_per_mtok": { "$ref": "#/$defs/usd", "description": "Input tokens written to Anthropic's 1-hour prompt cache." },
+        "audio_input_per_mtok": { "$ref": "#/$defs/usd", "description": "Uncached audio input tokens, when the page prices audio separately." },
+        "cached_audio_input_per_mtok": { "$ref": "#/$defs/usd", "description": "Cached audio input tokens, when the page prices them separately." }
+      }
+    },
+    "tier": {
+      "description": "Rates that replace the block's rates when the prompt has more than above_input_tokens input tokens (cached and cache-write tokens included).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["above_input_tokens", "input_per_mtok", "output_per_mtok"],
+      "allOf": [{ "$ref": "#/$defs/rateFields" }],
+      "properties": {
+        "above_input_tokens": { "type": "integer", "minimum": 1 },
+        "input_per_mtok": true,
+        "output_per_mtok": true,
+        "cached_input_per_mtok": true,
+        "cache_write_per_mtok": true,
+        "cache_write_1h_per_mtok": true,
+        "audio_input_per_mtok": true,
+        "cached_audio_input_per_mtok": true
+      }
+    },
+    "block": {
+      "description": "A complete set of rates: base rates plus optional prompt-length tiers.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["input_per_mtok", "output_per_mtok"],
+      "allOf": [{ "$ref": "#/$defs/rateFields" }],
+      "properties": {
+        "input_per_mtok": true,
+        "output_per_mtok": true,
+        "cached_input_per_mtok": true,
+        "cache_write_per_mtok": true,
+        "cache_write_1h_per_mtok": true,
+        "audio_input_per_mtok": true,
+        "cached_audio_input_per_mtok": true,
+        "tiers": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/tier" } }
+      }
+    },
+    "change": {
+      "description": "A price change the page announces in advance. From effective_from (UTC) on, this block replaces the entry's rates, tiers and batch block.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["effective_from", "input_per_mtok", "output_per_mtok"],
+      "allOf": [{ "$ref": "#/$defs/rateFields" }],
+      "properties": {
+        "effective_from": { "$ref": "#/$defs/date" },
+        "input_per_mtok": true,
+        "output_per_mtok": true,
+        "cached_input_per_mtok": true,
+        "cache_write_per_mtok": true,
+        "cache_write_1h_per_mtok": true,
+        "audio_input_per_mtok": true,
+        "cached_audio_input_per_mtok": true,
+        "tiers": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/tier" } },
+        "batch": { "$ref": "#/$defs/block" }
+      }
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "model", "input_per_mtok", "output_per_mtok", "source", "checked"],
+      "allOf": [{ "$ref": "#/$defs/rateFields" }],
+      "properties": {
+        "provider": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "Provider key: openai, anthropic, google-gemini-api."
+        },
+        "model": { "$ref": "#/$defs/modelId", "description": "The exact model ID used in API calls." },
+        "aliases": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/modelId" },
+          "description": "Other exact IDs the provider documents for the same model."
+        },
+        "input_per_mtok": true,
+        "output_per_mtok": true,
+        "cached_input_per_mtok": true,
+        "cache_write_per_mtok": true,
+        "cache_write_1h_per_mtok": true,
+        "audio_input_per_mtok": true,
+        "cached_audio_input_per_mtok": true,
+        "tiers": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/tier" } },
+        "batch_discount": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "exclusiveMaximum": 1,
+          "description": "Fraction taken off every rate for batch requests, when the page states one flat discount (0.5 = 50% off)."
+        },
+        "batch": { "$ref": "#/$defs/block", "description": "Batch rates exactly as the page lists them, when it lists them per model." },
+        "changes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/change" },
+          "description": "Announced future prices, in date order."
+        },
+        "notes": { "type": "string", "minLength": 1, "description": "Qualifications the page puts on these prices." },
+        "source": { "type": "string", "pattern": "^https://", "description": "The official pricing page the entry was read from." },
+        "checked": { "$ref": "#/$defs/date", "description": "Date the entry was last verified against its source." }
+      }
+    }
+  }
+}
