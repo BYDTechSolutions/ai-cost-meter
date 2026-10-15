@@ -1,0 +1,21 @@
+# Weekly reminder to re-verify the prices. It fails when data/prices.json
+# was last verified more than 30 days ago. It never edits the data: prices
+# change only after a person re-reads each provider's pricing page.
+name: Data freshness
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: node scripts/check-data.mjs --max-age 30
