@@ -1,6 +1,6 @@
 {
   "name": "@bydtech/ai-cost-meter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Know what each LLM call costs, per request, per user and per feature, with budgets, without sending usage data anywhere.",
   "keywords": [
     "llm",

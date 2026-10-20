@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-21
+
+### Changed
+
+- Published from GitHub Actions through npm trusted publishing, with a
+  provenance attestation linking the package to this repository. No code changes.
+
 ## [0.1.0] - 2026-10-16
 
 ### Added
@@ -19,5 +26,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `jsonlLogger()` and the `ai-cost-meter` CLI: `price` for a quick estimate, `report` over a JSONL log, `models` to list prices.
 - Price dataset of 69 models from OpenAI, Anthropic and the Gemini API, each read from the provider's official pricing page on 2026-10-16, with prompt-length tiers, batch prices, announced price changes, a JSON Schema, `npm run check-data` and a weekly freshness check.
 
-[Unreleased]: https://github.com/BYDTechSolutions/ai-cost-meter/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/BYDTechSolutions/ai-cost-meter/releases/tag/v0.1.0
+[Unreleased]: https://github.com/BYDTechSolutions/ai-cost-meter/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/BYDTechSolutions/ai-cost-meter/releases/tag/v0.1.1
+[0.1.0]: https://github.com/BYDTechSolutions/ai-cost-meter/tree/0a495e7ead06cd3015fcbafeb6463b41fdac559f
